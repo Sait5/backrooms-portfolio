@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Закулисье · Балаев Сейт-Ахмет — Fullstack-разработчик</title>
+  <meta name="description" content="Портфолио дипломированного специалиста и fullstack-разработчика Балаева Сейт-Ахмета в виде найденной видеозаписи из Закулисья: четыре уровня вниз на лифте — холл, бассейн, парковка и поле с жёлтыми домами. Проекты, навыки, контакты.">
+  <meta name="theme-color" content="#0b0a06">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="scene" aria-hidden="true"></canvas>
+
+  <!-- синий экран видеомагнитофона -->
+  <div class="vcr" id="gate">
+    <p class="osd vcr-corner">ВИДЕО 1</p>
+    <div class="vcr-center">
+      <p class="osd">КАССЕТА</p>
+      <p class="osd vcr-title">ЗАКУЛИСЬЕ.VHS</p>
+      <p class="osd vcr-sub">С.-А. БАЛАЕВ · ПОРТФОЛИО · 2026</p>
+      <ol class="osd vcr-list">
+        <li><span>00</span> УРОВЕНЬ 0 · ХОЛЛ <i>— КТО Я</i></li>
+        <li><span>01</span> УРОВЕНЬ −1 · БАССЕЙН <i>— ПРОЕКТЫ</i></li>
+        <li><span>02</span> УРОВЕНЬ −2 · ПАРКОВКА <i>— НАВЫКИ</i></li>
+        <li><span>03</span> УРОВЕНЬ −3 · ПОЛЕ <i>— КОНТАКТЫ</i></li>
+      </ol>
+      <p class="osd vcr-load" id="load">ЗАГРУЗКА <span id="load-bar">░░░░░░░░░░</span></p>
+      <div class="vcr-actions">
+        <button type="button" class="osd vcr-btn" id="play-sound">▶ ВОСПР. СО ЗВУКОМ</button>
+        <button type="button" class="osd vcr-btn quiet" id="play-mute">▶ БЕЗ ЗВУКА</button>
+      </div>
+    </div>
+    <p class="osd vcr-foot">ЗАПИСЬ НАЙДЕНА · ПРОСМОТР НА СВОЙ СТРАХ И РИСК · НА КАЖДОМ УРОВНЕ СПРЯТАНА НАХОДКА</p>
+  </div>
+
+  <!-- экранные надписи камеры -->
+  <div class="hud" aria-hidden="true">
+    <div class="hud-tl">
+      <p class="osd"><span class="rec">●</span> REC</p>
+      <p class="osd hud-lvl" id="lvl">УРОВЕНЬ 0</p>
+    </div>
+    <p class="osd hud-mode" id="mode"></p>
+    <div class="hud-tr">
+      <p class="osd"><span class="battery"><i></i></span></p>
+      <p class="osd hud-eggs" id="eggs"></p>
+    </div>
+    <p class="osd hud-bl"><span id="date">--</span><br><span id="clock">--:--</span></p>
+    <p class="osd hud-br">SP <span id="timecode">00:00:00</span></p>
+  </div>
+  <p class="osd toast" id="toast" role="status" aria-live="polite"></p>
+
+  <main class="captions">
+    <!-- УРОВЕНЬ 0 · кто я — по частям: комната с креслом, середина коридора, конец коридора, залы -->
+    <section class="caption" id="cap-title">
+      <p class="osd tag">УРОВЕНЬ 0 · ХОЛЛ</p>
+      <h1 class="osd big">БАЛАЕВ<br>СЕЙТ-АХМЕТ</h1>
+      <p class="osd">ДИПЛОМИРОВАННЫЙ СПЕЦИАЛИСТ · FULLSTACK · 3D</p>
+    </section>
+
+    <section class="caption" id="cap-a1">
+      <p class="osd tag">ЗАПИСЬ 01 · КТО Я · 1/4</p>
+      <h2 class="osd">ДИПЛОМИРОВАННЫЙ СПЕЦИАЛИСТ</h2>
+      <p class="cc"><span>Меня зовут Сейт-Ахмет Балаев. Я fullstack-разработчик с дипломом IThub — Международной академии информационных технологий в Москве.</span></p>
+      <p class="cc"><span>Беру проект от идеи до запуска: продумываю базу данных и сервер, собираю интерфейс и выкладываю готовое в интернет.</span></p>
+    </section>
+
+    <section class="caption" id="cap-a2">
+      <p class="osd tag">ЗАПИСЬ 01 · КТО Я · 2/4</p>
+      <h2 class="osd">ИНЖЕНЕРИЯ + ВИЗУАЛ</h2>
+      <p class="cc"><span>Люблю, когда сайт не просто работает, а впечатляет: интерактивное 3D, живая анимация, подача как в кино.</span></p>
+      <p class="cc"><span>А под красивой оболочкой — надёжная начинка: аккаунты, роли и права доступа, уведомления, Telegram-боты и аккуратная база данных.</span></p>
+    </section>
+
+    <section class="caption" id="cap-a3">
+      <p class="osd tag">ЗАПИСЬ 01 · КТО Я · 3/4</p>
+      <h2 class="osd">ЧТО Я ДЕЛАЮ</h2>
+      <ul class="cc list">
+        <li><span>Профессиональные сайты и веб-платформы: личные кабинеты, роли, админ-панели</span></li>
+        <li><span>Telegram-боты: вход, уведомления, работа с аккаунтами и базой данных</span></li>
+        <li><span>Бэкенд: серверы, API, базы данных, облачный деплой</span></li>
+        <li><span>Программы для Windows и Mac: установщики, автообновления</span></li>
+        <li><span>3D-сайты и интерактивные презентации на Three.js</span></li>
+      </ul>
+    </section>
+
+    <section class="caption" id="cap-a4">
+      <p class="osd tag">ЗАПИСЬ 01 · КТО Я · 4/4</p>
+      <h2 class="osd">ТРИ ГОДА В КОДЕ</h2>
+      <p class="cc"><span>За три года прошёл путь от первой HTML-страницы до больших сайтов — с маршрутизацией, личными кабинетами, серверной частью и базами данных — и до собственного браузера.</span></p>
+      <p class="osd stats"><span><b>3</b> ГОДА В РАЗРАБОТКЕ</span> <span><b>60</b> РЕПОЗИТОРИЕВ</span> <span><b>12</b> ПРОЕКТОВ В ПРОДАКШЕНЕ</span></p>
+    </section>
+
+    <section class="caption" id="cap-exit">
+      <p class="osd tag">ЛИФТ</p>
+      <p class="osd">ЗАХОДИТЕ. ВНИЗ — УРОВЕНЬ −1 · БАССЕЙН ↓</p>
+    </section>
+
+    <!-- УРОВЕНЬ −1 · проекты -->
+    <section class="caption" id="cap-pool">
+      <p class="osd tag">УРОВЕНЬ −1 · БАССЕЙН</p>
+      <h2 class="osd">ЗАПИСЬ 02 · ПРОЕКТЫ</h2>
+      <p class="cc"><span>Четыре телевизора у воды — четыре проекта. На экран можно нажать.</span></p>
+    </section>
+
+    <section class="caption" id="cap-p0">
+      <p class="osd tag">ПРОЕКТ 1/4 · ДЕСКТОП · FULLSTACK</p>
+      <h2 class="osd">HORIZON</h2>
+      <p class="cc"><span>Собственный браузер для Windows и Mac.</span></p>
+      <ul class="cc list">
+        <li><span>Свой поиск: подсказки сайтов, исправление опечаток, похожие сайты</span></li>
+        <li><span>Сейф паролей с Windows Hello и Touch ID, встроенный VPN на ядре sing-box</span></li>
+        <li><span>Облачные аккаунты: сервер на Vercel, PostgreSQL (Neon), вход и сброс пароля через Telegram-бота</span></li>
+        <li><span>Детский режим, установщики, автообновления, сборка для Mac через GitHub Actions</span></li>
+      </ul>
+      <p class="osd stack">ELECTRON · NODE.JS · POSTGRESQL · SING-BOX · TELEGRAM BOT API · GITHUB ACTIONS</p>
+      <p class="links"><a class="osd btn" href="https://github.com/Sait5/horizon-browser" target="_blank" rel="noopener">КОД НА GITHUB ↗</a></p>
+    </section>
+
+    <section class="caption" id="cap-p1">
+      <p class="osd tag">ПРОЕКТ 2/4 · 3D · ВЕБ</p>
+      <h2 class="osd">VELOCITY</h2>
+      <p class="cc"><span>3D-шоурум суперкаров прямо в браузере.</span></p>
+      <ul class="cc list">
+        <li><span>Ferrari 458 Italia, Lamborghini Revuelto, Porsche 911 GT3, Bugatti Tourbillon — и гараж из восьми машин</span></li>
+        <li><span>Конфигуратор: цвета, глянец, мат и хром, суппорты, салон, двери и свет</span></li>
+        <li><span>Режим «В движении» по картам — солончак, долина, зима, тоннель — со сменой времени суток и дождём</span></li>
+        <li><span>Фоторежим, кинокамера и свой конвейер оптимизации моделей (Blender, Draco, WebP)</span></li>
+      </ul>
+      <p class="osd stack">NUXT 4 · TRESJS · THREE.JS · GSAP · RAPIER · BLENDER</p>
+      <p class="links">
+        <a class="osd btn" href="https://project-rkm9y.vercel.app" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
+        <a class="osd btn quiet" href="https://github.com/Sait5/velocity-atelier" target="_blank" rel="noopener">КОД ↗</a>
+      </p>
+    </section>
+
+    <section class="caption" id="cap-p2">
+      <p class="osd tag">ПРОЕКТ 3/4 · FULLSTACK · ПЛАТФОРМА</p>
+      <h2 class="osd">INTERCARGO</h2>
+      <p class="cc"><span>Платформа междугородних грузоперевозок с аукционами.</span></p>
+      <ul class="cc list">
+        <li><span>Заказчики публикуют заявки, перевозчики делают ставки</span></li>
+        <li><span>Роли и права доступа, приватные аукционы</span></li>
+        <li><span>Личный кабинет, отзывы, админ-панель</span></li>
+        <li><span>REST API на Express, авторизация на JWT, база MongoDB</span></li>
+      </ul>
+      <p class="osd stack">VUE 3 · PINIA · EXPRESS · MONGODB · JWT</p>
+      <p class="links">
+        <a class="osd btn" href="https://inter-cargo-6ag6.vercel.app" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
+        <a class="osd btn quiet" href="https://github.com/Sait5/InterCargo" target="_blank" rel="noopener">КОД ↗</a>
+      </p>
+    </section>
+
+    <section class="caption" id="cap-p3">
+      <p class="osd tag">ПРОЕКТ 4/4 · 3D · ЗВУК</p>
+      <h2 class="osd">RESONANCE</h2>
+      <p class="cc"><span>Музыкальные 3D-инструменты, на которых можно играть.</span></p>
+      <ul class="cc list">
+        <li><span>Рояль и ещё семь инструментов с живыми сэмплами</span></li>
+        <li><span>Аранжировки в режиме просмотра</span></li>
+        <li><span>Игра с MIDI-клавиатуры</span></li>
+      </ul>
+      <p class="osd stack">NEXT.JS · REACT THREE FIBER · TONE.JS · DRIZZLE · CLOUDFLARE</p>
+      <p class="links">
+        <a class="osd btn" href="https://resonance-eta-lemon.vercel.app" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
+        <a class="osd btn quiet" href="https://github.com/Sait5/Resonance" target="_blank" rel="noopener">КОД ↗</a>
+      </p>
+    </section>
+
+    <section class="caption" id="cap-lift1">
+      <p class="osd tag">ЛИФТ</p>
+      <p class="osd">ЗАХОДИТЕ. ВНИЗ — УРОВЕНЬ −2 · ПАРКОВКА ↓</p>
+    </section>
+
+    <!-- УРОВЕНЬ −2 · навыки -->
+    <section class="caption" id="cap-park">
+      <p class="osd tag">УРОВЕНЬ −2 · ПАРКОВКА</p>
+      <h2 class="osd">ЗАПИСЬ 03 · НАВЫКИ</h2>
+      <p class="cc"><span>Всё, чем я работаю, — на жёлтых табличках на колоннах. Идите вдоль прохода.</span></p>
+    </section>
+
+    <section class="caption" id="cap-s0">
+      <p class="osd tag">НАВЫКИ · 1/3</p>
+      <h2 class="osd">ФРОНТЕНД</h2>
+      <p class="osd stack">VUE 3 · NUXT · REACT · NEXT.JS · ANGULAR · TYPESCRIPT · TAILWIND · GSAP · FRAMER MOTION</p>
+    </section>
+    <section class="caption" id="cap-s1">
+      <p class="osd tag">НАВЫКИ · 2/3</p>
+      <h2 class="osd">3D И ГРАФИКА</h2>
+      <p class="osd stack">THREE.JS · REACT THREE FIBER · TRESJS · GLSL · RAPIER · BLENDER · DRACO · MESHOPT</p>
+    </section>
+    <section class="caption" id="cap-s2">
+      <p class="osd tag">НАВЫКИ · 3/3</p>
+      <h2 class="osd">БЭКЕНД И ДАННЫЕ</h2>
+      <p class="osd stack">NODE.JS · EXPRESS · POSTGRESQL · PRISMA · DRIZZLE · MONGODB · SUPABASE · JWT · ZOD · CLOUDFLARE WORKERS</p>
+    </section>
+
+    <section class="caption" id="cap-lift">
+      <p class="osd tag">ЛИФТ</p>
+      <p class="osd">ЗАХОДИТЕ. ВНИЗ — УРОВЕНЬ −3 · ПОЛЕ ↓</p>
+    </section>
+
+    <!-- УРОВЕНЬ −3 · контакты -->
+    <section class="caption" id="cap-field">
+      <p class="osd tag">УРОВЕНЬ −3 · ПОЛЕ</p>
+      <p class="osd">ЗДЕСЬ ТИХО. ИДИТЕ К ДОМАМ ↓</p>
+    </section>
+
+    <section class="caption" id="cap-contacts">
+      <p class="osd tag">ЗАПИСЬ 04 · КОНТАКТЫ</p>
+      <h2 class="osd big">МОИ<br>КОНТАКТЫ</h2>
+      <ul class="contacts">
+        <li><a class="osd contact" href="https://t.me/Saitama000001" target="_blank" rel="noopener"><span>TELEGRAM</span><b>@SAITAMA000001</b><i>↗</i></a></li>
+        <li><a class="osd contact" href="mailto:balaevs134@gmail.com"><span>ПОЧТА</span><b>BALAEVS134@GMAIL.COM</b><i>✉</i></a></li>
+        <li><a class="osd contact" href="https://github.com/Sait5" target="_blank" rel="noopener"><span>GITHUB</span><b>GITHUB.COM/SAIT5</b><i>↗</i></a></li>
+      </ul>
+      <p class="cc"><span>Открыт к работе и интересным проектам: продукты, сервисы, 3D-презентации.</span></p>
+      <p class="links"><button type="button" class="osd btn quiet" id="rewind">◀◀ В НАЧАЛО</button></p>
+    </section>
+
+    <p class="osd hint" id="hint">ЛИСТАЙТЕ — ИДТИ · ЗАЖМИТЕ МЫШЬ — ОСМОТРЕТЬСЯ</p>
+  </main>
+
+  <nav class="tape" aria-label="Уровни записи">
+    <button type="button" class="osd" data-go="0" aria-label="Уровень 0 — холл">0<span> · ХОЛЛ</span></button>
+    <button type="button" class="osd" data-go="1" aria-label="Уровень −1 — бассейн">−1<span> · БАССЕЙН</span></button>
+    <button type="button" class="osd" data-go="2" aria-label="Уровень −2 — парковка">−2<span> · ПАРКОВКА</span></button>
+    <button type="button" class="osd" data-go="3" aria-label="Уровень −3 — поле">−3<span> · ПОЛЕ</span></button>
+  </nav>
+  <div class="controls">
+    <button type="button" class="osd ctl walk" id="walk-back" aria-label="Идти назад — держите">◀ НАЗАД</button>
+    <button type="button" class="osd ctl walk" id="walk-fwd" aria-label="Идти вперёд — держите">ВПЕРЁД ▶</button>
+    <button type="button" class="osd ctl" id="auto" aria-pressed="false">▶ АВТО</button>
+    <button type="button" class="osd ctl" id="sound" aria-pressed="false">ЗВУК: ВЫКЛ</button>
+    <button type="button" class="osd ctl" id="lic-open" aria-haspopup="dialog">ЛИЦЕНЗИИ</button>
+  </div>
+
+  <!-- лицензии и авторы — синий экран видеомагнитофона -->
+  <dialog class="vcr-dialog" id="lic" aria-labelledby="lic-title">
+    <p class="osd vcr-corner">МЕНЮ · ИНФО</p>
+    <h2 class="osd" id="lic-title">ЛИЦЕНЗИИ И АВТОРЫ</h2>
+    <ul class="lic-list">
+      <li><a href="https://sketchfab.com/3d-models/backrooms-vr-1a5c397f0a43408fa38b09ea5c041149" target="_blank" rel="noopener">«Backrooms VR» — VTX</a><span>Sketchfab · CC BY 4.0 · уровень 0</span></li>
+      <li><a href="https://sketchfab.com/3d-models/azure-swimming-pool-pripyat-0ff412bf322b4e1db0c97a4ebae17e62" target="_blank" rel="noopener">«Azure Swimming Pool Pripyat» — Yarik16</a><span>Sketchfab · CC BY 4.0 · уровень −1, переделан: плитка, вода, свет</span></li>
+      <li><a href="https://sketchfab.com/3d-models/parking-garage-98f7bc75350f4fb7ad36830f58fc99be" target="_blank" rel="noopener">«parking garage» — SPLEEN VISION</a><span>Sketchfab · CC BY 4.0 · с этого фотоскана сняты текстуры пола, потолка и стен уровня −2</span></li>
+      <li><a href="https://ambientcg.com/view?id=Grass004" target="_blank" rel="noopener">«Grass 004» — ambientCG</a><span>CC0 · фототекстура газона уровня −3</span></li>
+      <li><a href="https://threejs.org" target="_blank" rel="noopener">three.js</a><span>MIT</span></li>
+      <li><a href="https://fonts.google.com/specimen/IBM+Plex+Mono" target="_blank" rel="noopener">IBM Plex Mono · Oswald</a><span>SIL Open Font License</span></li>
+    </ul>
+    <p class="lic-note">Улица, холмы и травинки, дома, лифт, телевизоры, мозаика, вода и весь звук сделаны кодом для этой кассеты.</p>
+    <button type="button" class="osd vcr-btn" id="lic-close">✕ ЗАКРЫТЬ</button>
+  </dialog>
+
+  <noscript><p class="osd noscript">ДЛЯ ПРОСМОТРА КАССЕТЫ НУЖЕН JAVASCRIPT. КОНТАКТЫ: TELEGRAM @SAITAMA000001 · GITHUB.COM/SAIT5</p></noscript>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
